@@ -3,13 +3,14 @@ import './App.css';
 // import Hello from './components/Hello';
 // import Counter from './components/Counter';
 // import List from './components/List';
-import Temperature from './components/temperature';
+// import Temperature from './components/temperature';
+import Formulary from './components/Formulary';
 
 function App() {
   return (
     <div className="App mt-5">
       <h1>First Project</h1>
-      <Temperature></Temperature>
+      <Formulary></Formulary>
     </div>
   );
 }
