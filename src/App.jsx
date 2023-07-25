@@ -7,7 +7,7 @@ import Temperature from './components/temperature';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App mt-5">
       <h1>First Project</h1>
       <Temperature></Temperature>
     </div>
