@@ -4,9 +4,14 @@ const Formulary = () => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
 
+  const Validation = (event) => {
+    event.prenventDefault()
+    console.log('botton pushed')
+  }
+
   return (
     <div>
-      <form className="form-group">
+      <form onSubmit={Validation} className="form-group">
         <input
           placeholder="Your name"
           className="form-control mb-3"
