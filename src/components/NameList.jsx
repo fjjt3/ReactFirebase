@@ -4,6 +4,8 @@ import uniqid from "uniqid"; // not installed
 const NameList = () => {
   const [name, setName] = useState("");
   const [namelist, setNameslist] = useState([]);
+  const [editionMode, setEditionMode] = useState(false)
+  const [id, setId] = useState('')
 
   const addName = (e) => {
     e.preventDefault();
@@ -15,6 +17,25 @@ const NameList = () => {
     setName("");
   };
 
+  const deleteName = (id) =>{
+
+    const newArray = namelist.filter( item => item.id !== id)
+    setNameslist(newArray)
+  }
+
+  const edit = (item) => {
+    setEditionMode(true)
+    setName(item.nameTittle)
+    setId(item.id)
+  }
+
+  const editName = (e) => {
+    e.preventDefault();
+    const newArray = namelist
+    .map( item => item.id === id ? {id:id, nameTittle:name}: item)
+    setNameslist(newArray)
+  }
+
   return (
     <div>
       <h2>CRUD APP</h2>
@@ -25,6 +46,18 @@ const NameList = () => {
             {namelist.map((item) => (
               <li key="{item.id}" className="list-group-item">
                 {item.nameTittle}
+                <button 
+                className="btn btn-info float-right"
+                onClick={ () => {deleteName(item.id)}}
+                >
+                    DELETE
+                </button>
+                <button 
+                className="btn btn-danger float-right"
+                onClick={ () => {edit(item)}}
+                >
+                    EDIT
+                </button>
               </li>
             ))}
           </ul>
@@ -32,9 +65,7 @@ const NameList = () => {
         <div className="col">
           <h2>Formulary to add name</h2>
           <form
-            onSubmit={(e) => {
-              addName(e);
-            }}
+            onSubmit={editionMode ? editName: addName}
             className="form-group"
           >
             <input
@@ -49,7 +80,7 @@ const NameList = () => {
             <input
               className="btn btn-info btn-block"
               type="submit"
-              value="Register Name"
+              value={editionMode ? "Edit Name" :"Register Name"}
             />
           </form>
         </div>
