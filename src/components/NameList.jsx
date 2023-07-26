@@ -6,15 +6,21 @@ const NameList = () => {
   const [namelist, setNameslist] = useState([]);
   const [editionMode, setEditionMode] = useState(false)
   const [id, setId] = useState('')
+  const [error, setError] = useState(null)
 
   const addName = (e) => {
     e.preventDefault();
+    if(!name.trim()){
+        setError('Name field is empty')
+        return
+    }
     const newName = {
       id: uniqid(),
       nameTittle: name,
     };
     setNameslist(...namelist, newName);
     setName("");
+    setName(null)
   };
 
   const deleteName = (id) =>{
@@ -34,6 +40,8 @@ const NameList = () => {
     const newArray = namelist
     .map( item => item.id === id ? {id:id, nameTittle:name}: item)
     setNameslist(newArray)
+    setEditionMode(false)
+    setName('')
   }
 
   return (
@@ -83,6 +91,16 @@ const NameList = () => {
               value={editionMode ? "Edit Name" :"Register Name"}
             />
           </form>
+          {
+            error != null ? (
+                <div className="alert alert-danger">
+                    {error}
+                </div>
+            ):
+            (
+                <div></div>
+            )
+          }
         </div>
       </div>
     </div>
